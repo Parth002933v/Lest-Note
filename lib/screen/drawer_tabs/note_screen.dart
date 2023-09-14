@@ -1,12 +1,10 @@
-import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:google_fonts/google_fonts.dart';
-
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:lets_note/api/apis.dart';
 import 'package:lets_note/main.dart';
 import 'package:lets_note/model/chat_model.dart';
+import 'package:lets_note/screen/add_note.dart';
 import 'package:lets_note/widget/custom_search_bar.dart';
 
 class NoteScreen extends StatelessWidget {
@@ -14,10 +12,12 @@ class NoteScreen extends StatelessWidget {
 
   final TextEditingController controller = TextEditingController();
   final GlobalKey<ScaffoldState> drawerkey;
-  // to store all notes of the perticular instance in form of ChatModel
-  List<NoteModel> notes = [];
+
   @override
   Widget build(BuildContext context) {
+    // to store all notes of the perticular instance in form of ChatModel
+    List<NoteModel> notes = [];
+
     return Scrollbar(
       thickness: 7,
       trackVisibility: true,
@@ -100,41 +100,59 @@ class NoteScreen extends StatelessWidget {
                       var note = notes[index];
 
                       // print the data in containor
-                      return Container(
-                        //    constraints: BoxConstraints(maxHeight: 200), // Set maximum height here
-                        padding: const EdgeInsets.all(9),
-                        decoration: BoxDecoration(
-                          border: Border.all(color: const Color(0xff7f8082)),
-                          borderRadius: BorderRadius.circular(10),
-                        ),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            // note tital
-                            Offstage(
-                              offstage: note.title.isEmpty ? true : false,
-                              child: Text(
-                                note.title, // Access title from note
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
-                                style: const TextStyle(
-                                    fontWeight: FontWeight.bold),
-                              ),
-                            ),
+                      // to update the note
+                      return InkWell(
+                        borderRadius: BorderRadius.circular(10),
+                        onTap: () {
+                          Navigator.of(context).push(MaterialPageRoute(
+                              builder: (context) =>
+                                  AddNoteScreen(notes: note, isUpdate : true)));
+                        },
+                        child: Container(
+                          //    constraints: BoxConstraints(maxHeight: 200), // Set maximum height here
+                          padding: const EdgeInsets.all(9),
+                          decoration: BoxDecoration(
+                            border: Border.all(color: const Color(0xff7f8082)),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                // note tital
+                                Padding(
+                                  padding: EdgeInsets.only(
+                                      bottom: mq.height * 0.007),
+                                  child: Offstage(
+                                    offstage: note.title.isEmpty ? true : false,
+                                    child: Text(
+                                      note.title, // Access title from note
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.lato(
+                                        fontSize: 18,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                                  ),
+                                ),
 
-                            // note content
-                            Text(
-                              note.content, // Access content from note
-                              maxLines: 10,
-                              overflow: TextOverflow.ellipsis,
-                              softWrap: true,
-                              style: GoogleFonts.roboto(
-                                color: const Color(0xff7f8082),
-                                fontWeight: FontWeight.w400,
-                              ),
+                                // note content
+                                Text(
+                                  note.content, // Access content from note
+                                  maxLines: 10,
+                                  overflow: TextOverflow.ellipsis,
+                                  softWrap: true,
+                                  style: GoogleFonts.roboto(
+                                    color: const Color(0xff7f8082),
+                                    fontWeight: FontWeight.w400,
+                                  ),
+                                ),
+                              ],
                             ),
-                          ],
+                          ),
                         ),
                       );
                     },

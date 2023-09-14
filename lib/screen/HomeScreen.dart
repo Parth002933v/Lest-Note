@@ -208,25 +208,25 @@ class HomeScreen extends StatelessWidget {
                 return NoteScreen(drawerkey: drawerkey);
 
               case EnumDrawerButtonName.reminder:
-                return const ReminderScreen();
+                return ReminderScreen();
 
               case EnumDrawerButtonName.dekkd:
-                return const DekkdScreen();
+                return DekkdScreen();
 
               case EnumDrawerButtonName.createNewLable:
-                return const CreateNewLableScreen();
+                return CreateNewLableScreen();
 
               case EnumDrawerButtonName.archive:
                 return ArchiveScreen(drawerkey: drawerkey);
 
               case EnumDrawerButtonName.delete:
-                return const DeleteScreen();
+                return DeleteScreen();
 
               case EnumDrawerButtonName.setting:
-                return const SettingScreen();
+                return SettingScreen();
 
               case EnumDrawerButtonName.help:
-                return const HelpFeedbackScreen();
+                return HelpFeedbackScreen();
 
               default:
                 return const Text('Error');
@@ -239,7 +239,10 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: const Color(0xffe7eef4),
         onPressed: () => Navigator.of(context).push(
           MaterialPageRoute(
-            builder: (context) => const AddNoteScreen(),
+            builder: (context) => AddNoteScreen(
+              notes: null,
+              timeID: DateTime.now().millisecondsSinceEpoch.toString(),
+            ),
           ),
         ),
         isExtended: true,

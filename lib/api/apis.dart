@@ -10,32 +10,45 @@ class APIs {
     return firestore
         .collection("users")
         .doc("swIKzsoSQUl36XkXNJcV") // my user id
-        .collection("notes") // notes
+        .collection("notes")
+        .orderBy('noteID', descending: true) // notes
         .snapshots();
   }
 
+  // create the reference of that path location where we store the data
+  static CollectionReference<Map<String, dynamic>> ref = firestore
+      .collection("users")
+      .doc("swIKzsoSQUl36XkXNJcV")
+      .collection("notes");
+
   // to add data in firestore
-
-  static Future<void> addNote(String title, String content) async {
+  static Future<void> addNote(
+      {required String tital,
+      required String content,
+      required String timeID}) async {
     //messages sending time(also used as id)
-    final time = DateTime.now().millisecondsSinceEpoch.toString();
-
-    // create the reference of that path location where we store the data
-    final ref = firestore
-        .collection("users")
-        .doc("swIKzsoSQUl36XkXNJcV")
-        .collection("notes");
+    //final time = DateTime.now().millisecondsSinceEpoch.toString();
 
     // save the model formate data in noteData to send it in firestore
     final noteData = NoteModel(
-      createdAt: time.toString(),
-      title: title,
+      noteID: timeID,
+      createdAt: timeID,
+      title: tital,
       content: content,
       updatedAt: "",
     );
 
     // send the data in that reference with create the doc(time) file name.
     // also convert that data into json formate
-    await ref.doc(time).set(noteData.toJson());
+    await ref.doc(timeID).set(noteData.toJson());
+  }
+
+  // Update the frestore data
+
+  static Future<void> updateNote(
+      {required String noteID,
+      required String title,
+      required String content}) async {
+    await ref.doc(noteID).update({'title': title, 'content': content});
   }
 }
