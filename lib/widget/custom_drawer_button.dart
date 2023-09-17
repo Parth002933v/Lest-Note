@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lets_note/main.dart';
 import 'package:lets_note/screen/HomeScreen.dart';
+import 'package:lets_note/theme/theme_data.dart';
 
+import '../theme/theme_getter.dart';
 
 class CustomDrawerButton1 extends StatelessWidget {
   const CustomDrawerButton1({
@@ -27,6 +29,8 @@ class CustomDrawerButton1 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = ThemeGetter.isDarkTheme(context);
+
     return ValueListenableBuilder(
       valueListenable: notifierSeletctedButton,
       builder: (context, value, child) => Padding(
@@ -52,19 +56,26 @@ class CustomDrawerButton1 extends StatelessWidget {
             ),
 
             // Icon and Text Color (dark color)
-            foregroundColor: MaterialStatePropertyAll(
-                notifierSeletctedButton.value == enum_
-                    ? const Color(0xff036489)
-                    : const Color(0xff0b1d27)),
+            foregroundColor:
+                MaterialStatePropertyAll(notifierSeletctedButton.value == enum_
+                    ? isDarkMode
+                        ? DarkThemeData.drawerTextColor
+                        : LightThemeData.drawerTextColor
+                    : isDarkMode
+                        ? DarkThemeData.searchBarDrawerColor1
+                        : Color(0xff0b1d27)),
 
             // position of button content
             alignment: Alignment.centerLeft,
 
             // Background button color
             backgroundColor: MaterialStateProperty.all(
-                notifierSeletctedButton.value == enum_
-                    ? const Color(0xffd2e5f4)
-                    : Colors.transparent),
+              notifierSeletctedButton.value == enum_
+                  ? isDarkMode
+                      ? DarkThemeData.drawerButton
+                      : LightThemeData.drawerButton
+                  : Colors.transparent,
+            ),
           ),
 
           // button Icon

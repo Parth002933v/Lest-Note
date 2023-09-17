@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:lets_note/model/chat_model.dart';
+import 'package:lets_note/theme/theme_getter.dart';
 
 class APIs {
   // For accessing cloud Firestore database

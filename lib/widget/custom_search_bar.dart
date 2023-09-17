@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lets_note/main.dart';
+import 'package:lets_note/theme/theme_data.dart';
+import 'package:lets_note/theme/theme_getter.dart';
 
 class CustomSearchBar extends StatelessWidget {
   const CustomSearchBar({
@@ -13,6 +15,8 @@ class CustomSearchBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = ThemeGetter.isDarkTheme(context);
+
     // padding of Entire searchBar
     return Padding(
       padding: EdgeInsets.only(
@@ -30,11 +34,13 @@ class CustomSearchBar extends StatelessWidget {
 
         // Drawer Icon
         leading: IconButton(
-            tooltip: "Open Navigation Drawer",
-            onPressed: () {
-              _drawerkey.currentState!.openDrawer();
-            },
-            icon: const Icon(Icons.menu)),
+          color: isDarkMode ? DarkThemeData.searchBarDrawerColor1 : null,
+          tooltip: "Open Navigation Drawer",
+          onPressed: () {
+            _drawerkey.currentState!.openDrawer();
+          },
+          icon: const Icon(Icons.menu),
+        ),
 
         // Icons of grid and profile
         trailing: [
@@ -55,14 +61,25 @@ class CustomSearchBar extends StatelessWidget {
         ],
 
         // Background colour of Searchbar
-        backgroundColor: MaterialStateProperty.all(const Color(0xffe9f0f6)),
+        backgroundColor: MaterialStateProperty.all(
+          isDarkMode
+              ? DarkThemeData.searchBarColor
+              : LightThemeData.searchBarColor,
+        ),
 
         // Hint of searchbar
         hintText: "Search your notes",
 
         // Hint of searchbar style
-        hintStyle: MaterialStateProperty.all(const TextStyle(
-            fontWeight: FontWeight.w400, color: Color(0xff484f55))),
+        hintStyle: MaterialStateProperty.all(
+          TextStyle(
+            fontSize: 17,
+            fontWeight: FontWeight.w400,
+            color: isDarkMode
+                ? DarkThemeData.searchBarHintColor2
+                : LightThemeData.searchBarHintColor2,
+          ),
+        ),
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
-import 'package:lets_note/api/apis.dart';
+import 'package:lets_note/theme/theme_data.dart';
+import 'package:lets_note/theme/theme_getter.dart';
+import 'package:lets_note/utils/apis.dart';
 import 'package:lets_note/main.dart';
 import 'package:lets_note/model/chat_model.dart';
 import 'package:lets_note/screen/add_note.dart';
@@ -15,6 +17,8 @@ class NoteScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = ThemeGetter.isDarkTheme(context);
+
     // to store all notes of the perticular instance in form of ChatModel
     List<NoteModel> notes = [];
 
@@ -106,10 +110,9 @@ class NoteScreen extends StatelessWidget {
                         onTap: () {
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) =>
-                                  AddNoteScreen(notes: note, isUpdate : true)));
+                                  AddNoteScreen(notes: note, isUpdate: true)));
                         },
                         child: Container(
-                          //    constraints: BoxConstraints(maxHeight: 200), // Set maximum height here
                           padding: const EdgeInsets.all(9),
                           decoration: BoxDecoration(
                             border: Border.all(color: const Color(0xff7f8082)),
@@ -122,15 +125,16 @@ class NoteScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 // note tital
-                                Padding(
-                                  padding: EdgeInsets.only(
-                                      bottom: mq.height * 0.007),
-                                  child: Offstage(
-                                    offstage: note.title.isEmpty ? true : false,
+                                Offstage(
+                                  offstage: note.title.isEmpty ? true : false,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(
+                                      bottom: mq.height * 0.007,
+                                    ),
                                     child: Text(
                                       note.title, // Access title from note
-                                      maxLines: 2,
-                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: null,
+                                      //overflow: TextOverflow.ellipsis,
                                       style: GoogleFonts.lato(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w700,
@@ -146,7 +150,9 @@ class NoteScreen extends StatelessWidget {
                                   overflow: TextOverflow.ellipsis,
                                   softWrap: true,
                                   style: GoogleFonts.roboto(
-                                    color: const Color(0xff7f8082),
+                                    color: isDarkMode
+                                        ? DarkThemeData.noteTextColor
+                                        : LightThemeData.noteTextColor,
                                     fontWeight: FontWeight.w400,
                                   ),
                                 ),

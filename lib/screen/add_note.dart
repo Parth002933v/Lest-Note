@@ -2,13 +2,12 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:lets_note/api/apis.dart';
-import 'package:lets_note/helper/helper.dart';
+import 'package:lets_note/utils/apis.dart';
 import 'package:lets_note/main.dart';
 import 'package:lets_note/model/chat_model.dart';
 
 class AddNoteScreen extends StatefulWidget {
-  AddNoteScreen({
+  const AddNoteScreen({
     super.key,
     required this.notes,
     this.isUpdate = false,
@@ -111,6 +110,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                           content: _descriptioncontroller.text);
                     }
                   },
+                  maxLines: null,
                   controller: _titlecontroller,
                   style: GoogleFonts.robotoSlab(fontSize: 30),
                   decoration: const InputDecoration(
