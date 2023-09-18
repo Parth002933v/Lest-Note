@@ -6,6 +6,8 @@ import 'package:lets_note/utils/apis.dart';
 import 'package:lets_note/main.dart';
 import 'package:lets_note/model/chat_model.dart';
 
+import '../theme/theme_getter.dart';
+
 class AddNoteScreen extends StatefulWidget {
   const AddNoteScreen({
     super.key,
@@ -51,6 +53,8 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = ThemeGetter.isDarkTheme(context);
+
     return Scaffold(
       appBar: AppBar(
         // remove back button
@@ -62,13 +66,14 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
               Padding(
                 padding: EdgeInsets.only(left: mq.width * 0.02),
                 child: IconButton(
-                  color: Colors.black38,
+                  tooltip: "Navigate To Up",
+                  color: isDarkMode ? Colors.white : Colors.black,
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
                   icon: const Icon(
                     Icons.arrow_back,
-                    color: Colors.black,
+                    //color: Colors.black,
                   ),
                 ),
               )
@@ -79,6 +84,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
       body: SafeArea(
         // GestureDetector
         child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
 
@@ -110,13 +116,14 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                           content: _descriptioncontroller.text);
                     }
                   },
+                  scrollPhysics: const NeverScrollableScrollPhysics(),
                   maxLines: null,
                   controller: _titlecontroller,
-                  style: GoogleFonts.robotoSlab(fontSize: 30),
+                  style: GoogleFonts.robotoSlab(fontSize: 25),
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Title',
-                    hintStyle: TextStyle(fontSize: 30, color: Colors.grey),
+                    hintStyle: TextStyle(fontSize: 25, color: Colors.grey),
                   ),
                 ),
 
@@ -124,6 +131,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                 SizedBox(
                   height: mq.height,
                   child: TextField(
+                    scrollPhysics: const NeverScrollableScrollPhysics(),
                     onChanged: (value) async {
                       // to update the note
                       if (widget.isUpdate == true) {

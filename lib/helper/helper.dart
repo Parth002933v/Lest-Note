@@ -13,4 +13,13 @@ class helper {
       fontSize: 16.0,
     );
   }
+
+  static void showScaffoldMessage(String msg, BuildContext context) {
+    ScaffoldMessenger.of(context).clearSnackBars();
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(msg),
+      ),
+    );
+  }
 }

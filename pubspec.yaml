@@ -42,6 +42,9 @@ dependencies:
   firebase_storage: ^11.2.6
   cloud_firestore: ^4.9.1
   fluttertoast: ^8.2.2
+  riverpod_generator: ^2.3.2
+  build_runner: ^2.4.6
+  flutter_riverpod: ^2.4.0
 #  flutter_launcher_icons: ^0.13.1
 
 dev_dependencies:

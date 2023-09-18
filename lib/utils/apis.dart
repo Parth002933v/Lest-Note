@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
+import 'package:lets_note/helper/helper.dart';
 import 'package:lets_note/model/chat_model.dart';
 import 'package:lets_note/theme/theme_getter.dart';
 
@@ -45,11 +47,21 @@ class APIs {
   }
 
   // Update the frestore data
-
   static Future<void> updateNote(
       {required String noteID,
       required String title,
       required String content}) async {
     await ref.doc(noteID).update({'title': title, 'content': content});
+  }
+
+  static Future<void> Delete(List<String> NoteID) async {
+    for (int i = 0; i < NoteID.length; i++) {
+      print(i);
+      await ref.doc(NoteID[i]).delete();
+    }
+
+    //helper.showToastMessage('Your Note Has been deleted');
+
+
   }
 }
