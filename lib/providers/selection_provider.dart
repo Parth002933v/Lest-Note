@@ -1,10 +1,10 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lets_note/model/chat_model.dart';
 
-class SelectionNotifier extends StateNotifier<List<String>> {
+class SelectionNotifier extends StateNotifier<List<NoteModel>> {
   SelectionNotifier() : super([]);
 
-  bool select(String note) {
+  bool select(NoteModel note) {
     print('call 1');
 
     // if provider has data
@@ -27,7 +27,6 @@ class SelectionNotifier extends StateNotifier<List<String>> {
   }
 
   bool clearTheState() {
-
     state.clear();
 
     return false;
@@ -35,5 +34,7 @@ class SelectionNotifier extends StateNotifier<List<String>> {
 }
 
 final selectionProvider =
-    StateNotifierProvider<SelectionNotifier, List<String>>(
+    StateNotifierProvider<SelectionNotifier, List<NoteModel>>(
         (ref) => SelectionNotifier());
+
+///--------------------------------------------------------------------------///

@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lets_note/theme/theme_data.dart';
 import 'package:lets_note/utils/apis.dart';
 import 'package:lets_note/main.dart';
 import 'package:lets_note/model/chat_model.dart';
@@ -56,7 +57,12 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
     final isDarkMode = ThemeGetter.isDarkTheme(context);
 
     return Scaffold(
+      backgroundColor:
+          isDarkMode ? DarkThemeData.primaryBackgroundColor : Colors.white,
       appBar: AppBar(
+        backgroundColor:
+            isDarkMode ? DarkThemeData.primaryBackgroundColor : Colors.white,
+
         // remove back button
         automaticallyImplyLeading: false,
         flexibleSpace: SafeArea(
@@ -64,7 +70,8 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Padding(
-                padding: EdgeInsets.only(left: mq.width * 0.02),
+                padding: EdgeInsets.only(
+                    left: mq.width * 0.02, top: mq.height * 0.01),
                 child: IconButton(
                   tooltip: "Navigate To Up",
                   color: isDarkMode ? Colors.white : Colors.black,
@@ -118,8 +125,9 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                   },
                   scrollPhysics: const NeverScrollableScrollPhysics(),
                   maxLines: null,
+                  keyboardType: TextInputType.multiline,
                   controller: _titlecontroller,
-                  style: GoogleFonts.robotoSlab(fontSize: 25),
+                  style: GoogleFonts.robotoSlab(fontSize: 20),
                   decoration: const InputDecoration(
                     border: InputBorder.none,
                     hintText: 'Title',
@@ -128,44 +136,42 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                 ),
 
                 // note
-                SizedBox(
-                  height: mq.height,
-                  child: TextField(
-                    scrollPhysics: const NeverScrollableScrollPhysics(),
-                    onChanged: (value) async {
-                      // to update the note
-                      if (widget.isUpdate == true) {
-                        log('update');
-                        APIs.updateNote(
-                            noteID: widget.notes!.noteID,
-                            title: _titlecontroller.text,
-                            content: _descriptioncontroller.text);
-                      }
-                      // // add a new note
-                      else if (widget.isUpdate == false &&
-                          _descriptioncontroller.text.isNotEmpty &&
-                          _descriptioncontroller.text.trim().isNotEmpty &&
-                          widget.timeID != null) {
-                        //  timeID = DateTime.now().millisecondsSinceEpoch;
+                TextField(
+                  scrollPhysics: const NeverScrollableScrollPhysics(),
+                  onChanged: (value) async {
+                    // to update the note
+                    if (widget.isUpdate == true) {
+                      log('update');
+                      APIs.updateNote(
+                          noteID: widget.notes!.noteID,
+                          title: _titlecontroller.text,
+                          content: _descriptioncontroller.text);
+                    }
+                    // // add a new note
+                    else if (widget.isUpdate == false &&
+                        _descriptioncontroller.text.isNotEmpty &&
+                        _descriptioncontroller.text.trim().isNotEmpty &&
+                        widget.timeID != null) {
+                      //  timeID = DateTime.now().millisecondsSinceEpoch;
 
-                        log('add');
-                        await APIs.addNote(
-                            timeID: widget.timeID!,
-                            tital: _titlecontroller.text,
-                            content: _descriptioncontroller.text);
-                      }
-                    },
-                    expands: true,
-                    controller: _descriptioncontroller,
-                    maxLines: null,
-                    autofocus: widget.notes != null ? false : true,
-                    //  focusNode: _descriptionFocusNode,
-                    keyboardType: TextInputType.multiline,
-                    decoration: const InputDecoration(
-                      border: InputBorder.none,
-                      hintText: 'Type Something Here',
-                      hintStyle: TextStyle(color: Colors.grey),
-                    ),
+                      log('add');
+                      await APIs.addNote(
+                          timeID: widget.timeID!,
+                          tital: _titlecontroller.text,
+                          content: _descriptioncontroller.text);
+                    }
+                  },
+                  expands: false,
+                  keyboardType: TextInputType.multiline,
+                  controller: _descriptioncontroller,
+                  maxLines: null,
+                  autofocus: widget.notes != null ? false : true,
+                  //  focusNode: _descriptionFocusNode,
+                  //keyboardType: TextInputType.multiline,
+                  decoration: const InputDecoration(
+                    border: InputBorder.none,
+                    hintText: 'Type Something Here',
+                    hintStyle: TextStyle(color: Colors.grey),
                   ),
                 ),
               ],
@@ -173,22 +179,6 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
           ),
         ),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   onPressed: () async {
-      //     if (_descriptioncontroller.text.isNotEmpty &&
-      //         _descriptioncontroller.text.trim().isNotEmpty) {
-      //     } else {
-      //       helper.showToastMessage("Please fill all the fiels proparly");
-      //     }
-      //   },
-      //   backgroundColor: Colors.blueGrey,
-      //   elevation: 10,
-      //   child: const Icon(
-      //     Icons.save,
-      //     color: Colors.white,
-      //     size: 25,
-      //   ),
-      // ),
     );
   }
 }

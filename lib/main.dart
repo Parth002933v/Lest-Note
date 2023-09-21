@@ -56,7 +56,7 @@ class MyApp extends StatelessWidget {
 
       // Theme Mode
       themeMode: ThemeMode.system,
-      home: HzomeScreen(),
+      home: HomeScreen(),
     );
   }
 }

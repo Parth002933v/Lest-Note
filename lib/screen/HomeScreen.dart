@@ -109,34 +109,6 @@ class HomeScreen extends StatelessWidget {
           },
         ),
       ),
-
-      bottomNavigationBar: BottomAppBar(
-        height: mq.height * 0.06,
-        notchMargin: 9,
-        surfaceTintColor: Colors.transparent,
-        shadowColor: Colors.transparent,
-        shape: const CircularNotchedRectangle(),
-        color: isDarkMode
-            ? DarkThemeData.floatingButtonColor
-            : LightThemeData.floatingButtonColor,
-      ),
-
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: isDarkMode
-            ? const Color(0xff212a31)
-            : LightThemeData.floatingButtonColor,
-        onPressed: () => Navigator.of(context).push(
-          MaterialPageRoute(
-            builder: (context) => AddNoteScreen(
-              notes: null,
-              timeID: DateTime.now().millisecondsSinceEpoch.toString(),
-            ),
-          ),
-        ),
-        child: const Icon(Icons.add, size: 35),
-      ),
     );
   }
 }

@@ -1,28 +1,28 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/material.dart';
-import 'package:lets_note/helper/helper.dart';
 import 'package:lets_note/model/chat_model.dart';
-import 'package:lets_note/theme/theme_getter.dart';
 
 class APIs {
   // For accessing cloud Firestore database
   static FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-  // to fetch the data of notes
-  static Stream<QuerySnapshot<Map<String, dynamic>>> getNotesStream() {
-    return firestore
-        .collection("users")
-        .doc("swIKzsoSQUl36XkXNJcV") // my user id
-        .collection("notes")
-        .orderBy('noteID', descending: true) // notes
-        .snapshots();
-  }
 
   // create the reference of that path location where we store the data
   static CollectionReference<Map<String, dynamic>> ref = firestore
       .collection("users")
       .doc("swIKzsoSQUl36XkXNJcV")
       .collection("notes");
+
+  // take all notes form firebase
+  static Query<Map<String, dynamic>> takeAllNotes = firestore
+      .collection("users")
+      .doc("swIKzsoSQUl36XkXNJcV") // my user id
+      .collection("notes")
+      .orderBy('noteID', descending: true);
+
+  // convert the notes into snapshot
+  static Stream<QuerySnapshot<Map<String, dynamic>>> getNotesStream() {
+    return // notes
+        takeAllNotes.snapshots();
+  }
 
   // to add data in firestore
   static Future<void> addNote(
@@ -54,14 +54,10 @@ class APIs {
     await ref.doc(noteID).update({'title': title, 'content': content});
   }
 
-  static Future<void> Delete(List<String> NoteID) async {
-    for (int i = 0; i < NoteID.length; i++) {
-      print(i);
-      await ref.doc(NoteID[i]).delete();
+  // to delete the note
+  static Future<void> delete(List<NoteModel> noteID) async {
+    for (int i = 0; i < noteID.length; i++) {
+      await ref.doc(noteID[i].noteID).delete();
     }
-
-    //helper.showToastMessage('Your Note Has been deleted');
-
-
   }
 }
