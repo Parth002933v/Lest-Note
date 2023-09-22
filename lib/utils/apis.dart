@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lets_note/model/chat_model.dart';
 
 class APIs {
@@ -60,4 +61,18 @@ class APIs {
       await ref.doc(noteID[i].noteID).delete();
     }
   }
+
+    static StreamProvider<QuerySnapshot<Map<String, dynamic>>>
+      notesStreamProvider = StreamProvider(
+    (ref) {
+      final stream = firestore
+          .collection("users")
+          .doc("swIKzsoSQUl36XkXNJcV")
+          .collection("notes")
+          .orderBy('noteID', descending: true)
+          .snapshots();
+
+      return stream;
+    },
+  );
 }

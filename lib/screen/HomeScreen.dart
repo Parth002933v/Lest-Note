@@ -9,6 +9,7 @@ import 'package:lets_note/screen/drawer_tabs/create_new_lable_screen.dart';
 import 'package:lets_note/screen/drawer_tabs/dekkd_screen.dart';
 import 'package:lets_note/screen/drawer_tabs/delete_screen.dart';
 import 'package:lets_note/screen/drawer_tabs/help_feedback_screen.dart';
+import 'package:lets_note/screen/drawer_tabs/note_screen_2.dart';
 import 'package:lets_note/screen/drawer_tabs/reminder_screen.dart';
 import 'package:lets_note/screen/drawer_tabs/setting_screen.dart';
 import 'package:lets_note/theme/theme_data.dart';
@@ -80,7 +81,7 @@ class HomeScreen extends StatelessWidget {
           builder: (context, value, child) {
             switch (value) {
               case EnumDrawerButtonName.notes:
-                return NoteScreen(drawerkey: drawerkey);
+                return NoteScreen2(drawerkey: drawerkey);
 
               case EnumDrawerButtonName.reminder:
                 return const ReminderScreen();
