@@ -28,7 +28,6 @@ class SelectionNotifier extends StateNotifier<List<NoteModel>> {
 
   bool clearTheState() {
     state.clear();
-
     return false;
   }
 }

@@ -145,21 +145,24 @@ class NoteScreen extends ConsumerWidget {
                                       PopupMenuItem(
                                         value: 2,
                                         child: const Text('Delete'),
-                                        onTap: () {
+                                        onTap: () async {
+                                          // take notes to delete
                                           final wantToDelete =
-                                              reff.watch(selectionProvider);
+                                              reff.read(selectionProvider);
 
-                                          APIs.delete(wantToDelete).then(
-                                              (value) => reff
-                                                  .watch(selectionProvider
-                                                      .notifier)
-                                                  .clearTheState());
-                                          helper.showScaffoldMessage(
-                                            'Your Note Has been deleted',
-                                            context,
-                                          );
+                                          // delete form firebase
+                                          await APIs.delete(wantToDelete);
 
-                                          isSelected.value = false;
+                                          isSelected.value = reff
+                                              .read(selectionProvider.notifier)
+                                              .clearTheState();
+
+                                          if (context.mounted) {
+                                            // show the dialoge msg
+                                            helper.showScaffoldMessage(
+                                                'Your Note Has been deleted',
+                                                context);
+                                          }
                                         },
                                       ),
                                       if (reff
@@ -168,10 +171,10 @@ class NoteScreen extends ConsumerWidget {
                                           1)
                                         PopupMenuItem(
                                           onTap: () {
-                                            CopyText(reff);
+                                            copyText(reff);
                                           },
                                           value: 3,
-                                          child: Text('copy text'),
+                                          child: const Text('copy text'),
                                         ),
                                       const PopupMenuItem(
                                           value: 4, child: Text('Send')),
@@ -338,21 +341,27 @@ class NoteScreen extends ConsumerWidget {
   }
 
   // to copy the state txt
-  void CopyText(WidgetRef reff) {
-    final NoteToCopy = reff.read(selectionProvider);
+  void copyText(WidgetRef reff) {
+    final noteToCopy = reff.read(selectionProvider);
 
     // to Cpoy The selected Text
     Clipboard.setData(
       ClipboardData(
-        text: NoteToCopy[0].content.toString(),
+        text: noteToCopy[0].content.toString(),
       ),
-    ).then((value) => closeSelection(reff));
+    );
+
+    closeSelection(reff);
+
+    //isSelected.value = false;
   }
 
   // to close selection
   void closeSelection(WidgetRef reff) {
     isSelected.value = reff.read(selectionProvider.notifier).clearTheState();
 
-    reff.refresh(selectionProvider);
+    final refresh = reff.refresh(selectionProvider);
+
+    print(refresh);
   }
 }

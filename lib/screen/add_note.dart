@@ -165,6 +165,7 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
                   keyboardType: TextInputType.multiline,
                   controller: _descriptioncontroller,
                   maxLines: null,
+
                   autofocus: widget.notes != null ? false : true,
                   //  focusNode: _descriptionFocusNode,
                   //keyboardType: TextInputType.multiline,
