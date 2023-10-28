@@ -1,23 +1,18 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lets_note/main.dart';
-import 'package:lets_note/screen/add_note.dart';
 import 'package:lets_note/screen/drawer_tabs/archive_screen.dart';
 import 'package:lets_note/screen/drawer_tabs/create_new_lable_screen.dart';
 import 'package:lets_note/screen/drawer_tabs/dekkd_screen.dart';
 import 'package:lets_note/screen/drawer_tabs/delete_screen.dart';
 import 'package:lets_note/screen/drawer_tabs/help_feedback_screen.dart';
-import 'package:lets_note/screen/drawer_tabs/note_screen_2.dart';
+import 'package:lets_note/screen/drawer_tabs/note_screen.dart';
 import 'package:lets_note/screen/drawer_tabs/reminder_screen.dart';
 import 'package:lets_note/screen/drawer_tabs/setting_screen.dart';
 import 'package:lets_note/theme/theme_data.dart';
 import 'package:lets_note/theme/theme_getter.dart';
-import 'package:lets_note/widget/custom_drawer_button.dart';
-
 import '../widget/custome_drawer.dart';
-import 'drawer_tabs/note_screen.dart';
+
 
 enum EnumDrawerButtonName {
   notes,

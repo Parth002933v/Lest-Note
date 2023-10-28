@@ -40,7 +40,6 @@ class CustomDrawerButton1 extends StatelessWidget {
           // onPressed
           onPressed: () {
             notifierSeletctedButton.value = enum_;
-            //  onPressd(label);
 
             Navigator.of(context).pop();
           },
@@ -56,14 +55,15 @@ class CustomDrawerButton1 extends StatelessWidget {
             ),
 
             // Icon and Text Color (dark color)
-            foregroundColor:
-                MaterialStatePropertyAll(notifierSeletctedButton.value == enum_
-                    ? isDarkMode
-                        ? DarkThemeData.drawerTextColor
-                        : LightThemeData.drawerTextColor
-                    : isDarkMode
-                        ? DarkThemeData.searchBarDrawerColor1
-                        : Color(0xff0b1d27)),
+            foregroundColor: MaterialStatePropertyAll(
+              notifierSeletctedButton.value == enum_
+                  ? isDarkMode
+                      ? DarkThemeData.drawerTextColor
+                      : LightThemeData.drawerTextColor
+                  : isDarkMode
+                      ? DarkThemeData.searchBarDrawerColor1
+                      : const Color(0xff0b1d27),
+            ),
 
             // position of button content
             alignment: Alignment.centerLeft,
@@ -71,10 +71,10 @@ class CustomDrawerButton1 extends StatelessWidget {
             // Background button color
             backgroundColor: MaterialStateProperty.all(
               notifierSeletctedButton.value == enum_
-                  ? isDarkMode
-                      ? DarkThemeData.drawerButton
-                      : LightThemeData.drawerButton
-                  : Colors.transparent,
+                    ? isDarkMode
+                        ? DarkThemeData.drawerButton
+                        : LightThemeData.drawerButton
+                    : Colors.transparent,
             ),
           ),
 

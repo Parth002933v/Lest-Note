@@ -71,8 +71,8 @@ class CustomeDrawer extends StatelessWidget {
 
           // to re build all button UI
           Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               // Notes
               CustomDrawerButton1(

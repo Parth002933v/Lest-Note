@@ -20,10 +20,7 @@ class SelectedNoteContainor extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(9),
       decoration: BoxDecoration(
-        border: Border.all(
-          width: 4,
-          color: Colors.blueAccent,
-        ),
+        border: Border.all(width: 4, color: Colors.blueAccent),
         borderRadius: BorderRadius.circular(10),
       ),
       child: Padding(

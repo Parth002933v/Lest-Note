@@ -13,7 +13,7 @@ class NoteModel {
   late final String updatedAt;
 
   NoteModel.fromJson(Map<String, dynamic> json) {
-    noteID = json['noteID'];
+    noteID = json['noteID'];  
     createdAt = json['createdAt'];
     title = json['title'];
     content = json['content'];

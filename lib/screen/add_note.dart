@@ -88,98 +88,98 @@ class _AddNoteScreenState extends State<AddNoteScreen> {
           ),
         ),
       ),
-      body: SafeArea(
-        // GestureDetector
-        child: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+        body: SafeArea(
+          // GestureDetector
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
 
-            // for tital and note
-            child: Column(
-              children: [
-                // tital
-                TextField(
-                  onChanged: (value) async {
-                    // to update the note
-                    if (widget.isUpdate == true) {
-                      log('update');
-                      APIs.updateNote(
-                          noteID: widget.notes!.noteID,
-                          title: _titlecontroller.text,
-                          content: _descriptioncontroller.text);
-                    }
-                    // // add a new note
-                    else if (widget.isUpdate == false &&
-                        _descriptioncontroller.text.isNotEmpty &&
-                        _descriptioncontroller.text.trim().isNotEmpty &&
-                        widget.timeID != null) {
-                      //  timeID = DateTime.now().millisecondsSinceEpoch;
+              // for tital and note
+              child: Column(
+                children: [
+                  // tital
+                  TextField(
+                    onChanged: (value) async {
+                      // to update the note
+                      if (widget.isUpdate == true) {
+                        log('update');
+                        APIs.updateNote(
+                            noteID: widget.notes!.noteID,
+                            title: _titlecontroller.text,
+                            content: _descriptioncontroller.text);
+                      }
+                      // // add a new note
+                      else if (widget.isUpdate == false &&
+                          _descriptioncontroller.text.isNotEmpty &&
+                          _descriptioncontroller.text.trim().isNotEmpty &&
+                          widget.timeID != null) {
+                        //  timeID = DateTime.now().millisecondsSinceEpoch;
 
-                      log('add');
-                      await APIs.addNote(
-                          timeID: widget.timeID!,
-                          tital: _titlecontroller.text,
-                          content: _descriptioncontroller.text);
-                    }
-                  },
-                  scrollPhysics: const NeverScrollableScrollPhysics(),
-                  maxLines: null,
-                  keyboardType: TextInputType.multiline,
-                  controller: _titlecontroller,
-                  style: GoogleFonts.robotoSlab(fontSize: 20),
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Title',
-                    hintStyle: TextStyle(fontSize: 25, color: Colors.grey),
+                        log('add');
+                        await APIs.addNote(
+                            timeID: widget.timeID!,
+                            tital: _titlecontroller.text,
+                            content: _descriptioncontroller.text);
+                      }
+                    },
+                    scrollPhysics: const NeverScrollableScrollPhysics(),
+                    maxLines: null,
+                    keyboardType: TextInputType.multiline,
+                    controller: _titlecontroller,
+                    style: GoogleFonts.robotoSlab(fontSize: 20),
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Title',
+                      hintStyle: TextStyle(fontSize: 25, color: Colors.grey),
+                    ),
                   ),
-                ),
 
-                // note
-                TextField(
-                  scrollPhysics: const NeverScrollableScrollPhysics(),
-                  onChanged: (value) async {
-                    // to update the note
-                    if (widget.isUpdate == true) {
-                      log('update');
-                      APIs.updateNote(
-                          noteID: widget.notes!.noteID,
-                          title: _titlecontroller.text,
-                          content: _descriptioncontroller.text);
-                    }
-                    // // add a new note
-                    else if (widget.isUpdate == false &&
-                        _descriptioncontroller.text.isNotEmpty &&
-                        _descriptioncontroller.text.trim().isNotEmpty &&
-                        widget.timeID != null) {
-                      //  timeID = DateTime.now().millisecondsSinceEpoch;
+                  // note
+                  TextField(
+                    scrollPhysics: const NeverScrollableScrollPhysics(),
+                    onChanged: (value) async {
+                      // to update the note
+                      if (widget.isUpdate == true) {
+                        log('update');
+                        APIs.updateNote(
+                            noteID: widget.notes!.noteID,
+                            title: _titlecontroller.text,
+                            content: _descriptioncontroller.text);
+                      }
+                      /// add a new note
+                      else if (widget.isUpdate == false &&
+                          _descriptioncontroller.text.isNotEmpty &&
+                          _descriptioncontroller.text.trim().isNotEmpty &&
+                          widget.timeID != null) {
+                        //  timeID = DateTime.now().millisecondsSinceEpoch;
 
-                      log('add');
-                      await APIs.addNote(
-                          timeID: widget.timeID!,
-                          tital: _titlecontroller.text,
-                          content: _descriptioncontroller.text);
-                    }
-                  },
-                  expands: false,
-                  keyboardType: TextInputType.multiline,
-                  controller: _descriptioncontroller,
-                  maxLines: null,
+                        log('add');
+                        await APIs.addNote(
+                            timeID: widget.timeID!,
+                            tital: _titlecontroller.text,
+                            content: _descriptioncontroller.text);
+                      }
+                    },
+                    expands: false,
+                    keyboardType: TextInputType.multiline,
+                    controller: _descriptioncontroller,
+                    maxLines: null,
 
-                  autofocus: widget.notes != null ? false : true,
-                  //  focusNode: _descriptionFocusNode,
-                  //keyboardType: TextInputType.multiline,
-                  decoration: const InputDecoration(
-                    border: InputBorder.none,
-                    hintText: 'Type Something Here',
-                    hintStyle: TextStyle(color: Colors.grey),
+                    autofocus: widget.notes != null ? false : true,
+                    //  focusNode: _descriptionFocusNode,
+                    //keyboardType: TextInputType.multiline,
+                    decoration: const InputDecoration(
+                      border: InputBorder.none,
+                      hintText: 'Type Something Here',
+                      hintStyle: TextStyle(color: Colors.grey),
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-      ),
     );
   }
 }

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../main.dart';
-import '../../screen/drawer_tabs/note_screen_2.dart';
+import '../../screen/drawer_tabs/note_screen.dart';
 import '../../theme/theme_data.dart';
 import '../../utils/apis.dart';
 
-class custome_searchbar extends StatelessWidget {
+class custome_searchbar extends StatefulWidget {
   const custome_searchbar({
     super.key,
     required this.isSearch,
@@ -22,17 +22,22 @@ class custome_searchbar extends StatelessWidget {
   final WidgetRef ref;
 
   @override
+  State<custome_searchbar> createState() => _custome_searchbarState();
+}
+
+class _custome_searchbarState extends State<custome_searchbar> {
+  @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         // searchbar UI or Search
         Visibility(
-          visible: isSearch.value,
+          visible: widget.isSearch.value,
           replacement: Container(
             width: mq.width * 0.93,
             height: mq.height * 0.06,
             decoration: BoxDecoration(
-              color: isDarkMode
+              color: widget.isDarkMode
                   ? DarkThemeData.searchBarColor
                   : LightThemeData.searchBarColor,
               borderRadius: BorderRadius.circular(30),
@@ -46,12 +51,12 @@ class custome_searchbar extends StatelessWidget {
                   padding: EdgeInsets.only(left: mq.width * 0.025),
                   child: IconButton(
                       tooltip: "Open Navigation Drawer",
-                      color: isDarkMode
+                      color: widget.isDarkMode
                           ? DarkThemeData.searchBarDrawerColor1
                           : null,
                       iconSize: 25,
                       onPressed: () {
-                        _drawerkey.currentState!.openDrawer();
+                        widget._drawerkey.currentState!.openDrawer();
                       },
                       icon: const Icon(Icons.menu)),
                 ),
@@ -62,14 +67,14 @@ class custome_searchbar extends StatelessWidget {
                         overlayColor:
                             MaterialStatePropertyAll(Colors.transparent)),
                     onPressed: () {
-                      isSearch.value = true;
+                      widget.isSearch.value = true;
                     },
                     child: Text(
                       'Search your notes',
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.w400,
-                        color: isDarkMode
+                        color: widget.isDarkMode
                             ? DarkThemeData.searchBarHintColor2
                             : LightThemeData.searchBarHintColor2,
                       ),
@@ -92,7 +97,7 @@ class custome_searchbar extends StatelessWidget {
                         child: IconButton(
                             tooltip: "Profile",
                             onPressed: () {
-                              ref.refresh(APIs.notesStreamProvider);
+                              widget.ref.refresh(APIs.notesStreamProvider);
                             },
                             icon: const Icon(Icons.account_circle_outlined)),
                       ),
@@ -104,7 +109,7 @@ class custome_searchbar extends StatelessWidget {
           ),
           child: Container(
             decoration: BoxDecoration(
-              color: isDarkMode
+              color: widget.isDarkMode
                   ? DarkThemeData.floatingButtonColor
                   : LightThemeData.floatingButtonColor,
             ),
@@ -113,17 +118,19 @@ class custome_searchbar extends StatelessWidget {
                 // back button
                 IconButton(
                     onPressed: () {
-                      isSearch.value = false;
+                      widget.isSearch.value = false;
                     },
                     icon: const Icon(Icons.arrow_back_rounded)),
                 Expanded(
-                    child: TextFormField(
-                  decoration: InputDecoration(
-                      hintText: "Search your notes",
-                      hintStyle:
-                          TextStyle(color: DarkThemeData.searchBarHintColor2),
-                      border: InputBorder.none),
-                )),
+                  child: TextFormField(
+                    onChanged: (value) {},
+                    decoration: InputDecoration(
+                        hintText: "Search your notes....",
+                        hintStyle:
+                            TextStyle(color: DarkThemeData.searchBarHintColor2),
+                        border: InputBorder.none),
+                  ),
+                ),
               ],
             ),
           ),
