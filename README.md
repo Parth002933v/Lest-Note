@@ -1,6 +1,8 @@
 # lets_note
 
-A new Flutter project.
+this is the first app I build using flutter and now I redesign this app
+this is the link of my redesign app => https://github.com/Parth002933v/Flutter-Keep-Note
+
 
 https://github.com/Parth002933v/Lest-Note/assets/140066704/4d3ff02e-91f4-48c1-a438-c3415eddaec8
 
